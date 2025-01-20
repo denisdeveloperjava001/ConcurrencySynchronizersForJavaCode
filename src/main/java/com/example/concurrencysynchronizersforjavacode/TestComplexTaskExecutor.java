@@ -7,13 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TestComplexTaskExecutor {
 
     public static void main(String[] args) {
-        ComplexTaskExecutor taskExecutor = new ComplexTaskExecutor(5); // Количество задач для выполнения
 
         Runnable testRunnable = () -> {
             System.out.println(Thread.currentThread().getName() + " started the test.");
+            ComplexTaskExecutor taskExecutor = new ComplexTaskExecutor(5);
 
-            // Выполнение задач
-            taskExecutor.executeTasks(5);
+            taskExecutor.executeTasks();
 
             System.out.println(Thread.currentThread().getName() + " completed the test.");
         };
@@ -30,5 +29,7 @@ public class TestComplexTaskExecutor {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
+
     }
 }

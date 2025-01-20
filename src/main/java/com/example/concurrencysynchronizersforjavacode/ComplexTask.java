@@ -8,6 +8,9 @@ public class ComplexTask {
     }
 
     public void execute() {
+        Result.number++;
+
+
 
     }
 }

@@ -17,7 +17,7 @@ public class ComplexTaskExecutor {
         this.barrier = new CyclicBarrier(numberOfTasks, this::combineResults);
     }
 
-    public void executeTasks(int numberOfTasks) {
+    public void executeTasks() {
         this.executorService = Executors.newFixedThreadPool(numberOfTasks);
         for (int i = 0; i < numberOfTasks; i++) {
             final int taskId = i;
@@ -31,11 +31,23 @@ public class ComplexTaskExecutor {
                 }
             });
         }
+        shutdownExecutorService();
     }
 
     private void combineResults() {
         //method for combining results
+        System.out.println(Result.number);
 
+    }
+    public void shutdownExecutorService() {
+        executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+        }
     }
 
 }
